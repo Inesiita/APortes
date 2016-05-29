@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/Login"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Login" />
+        <item
+            android:id="@+id/Registro"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Registro" />
+        <item
+            android:id="@+id/Publicar"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Publicar" />
+
+        <item
+            android:id="@+id/Perfil"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Perfil" />
+        <item
+            android:id="@+id/Usuarios"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Usuarios" />
+
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+
+</menu>

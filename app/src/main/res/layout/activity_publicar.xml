@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+
+    <TextView android:id="@+id/LblOrigen"
+        android:text="origen"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold" />
+
+    <EditText android:id="@+id/TxtOrigen"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView android:id="@+id/LblDestino"
+        android:text="Destino"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold" />
+
+    <EditText android:id="@+id/TxtDestino"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="capacidad m3"
+        android:id="@+id/LblCapacidad"
+        android:layout_weight="0.00" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/TxtCapacidad" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha"
+        android:id="@+id/LblFecha" />
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/TxtFecha" />
+
+    <TextView
+        android:layout_width="232dp"
+        android:layout_height="wrap_content"
+        android:text="Hora"
+        android:id="@+id/LblHora" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/TxtHora" />
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="108dp"
+        android:weightSum="1">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/BtnAceptar"
+            android:text="Aceptar"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="369dp"
+            android:layout_height="144dp"
+            android:id="@+id/LblMensaje" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tools:LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ventana de ayuda"
+        android:id="@+id/textView2"
+        android:layout_weight="0.07"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="AYUDA(ME)"
+        android:id="@+id/textView3"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.04"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="51dp" />
+
+    <EditText
+        android:layout_width="246dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText" />
+
+    <TextView
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Cantidad"
+        android:id="@+id/txtMedia"
+        android:layout_gravity="right"
+        android:layout_weight="0.16" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Media"
+        android:id="@+id/btMedia"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.07"
+        android:onClick="media" />
+</tools:LinearLayout>
