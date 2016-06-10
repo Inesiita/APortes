@@ -56,10 +56,38 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        inicializar();
+
+        fecha();
+
+        cargarLista();
+        // Evento para cuando doy click en algun elemento de la lista ( ListView )
+        lstLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
+
+                Intent i = new Intent(MainActivity.this, Cantidad.class);
+                i.putExtra("Codigo", datosLista[position].getCodigo());
+                i.putExtra("Origen", datosLista[position].getOrigen());
+                i.putExtra("Destino", datosLista[position].getDestino());
+                i.putExtra("Capacidad", datosLista[position].getCapacidad());
+                i.putExtra("Fecha", datosLista[position].getFecha());
+                i.putExtra("Hora", datosLista[position].getHora());
+
+                startActivity(i);
+            }
+        });
+
+    } // oncreate
+
+    private void inicializar() {
+
+        lstLista = (ListView)findViewById(R.id.LstOferta);
+        filtrarOferta = (EditText)findViewById(R.id.filtrarOferta);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -69,92 +97,26 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //Referenciamos los Controles
-        lstLista = (ListView)findViewById(R.id.LstOferta);
-        filtrarOferta = (EditText)findViewById(R.id.filtrarOferta);
-
         //Abrimos la base de datos 'DBUsuarios' en modo escritura
-        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 7);
+        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 8);
 
         //Asociamos el menu contextual a la lista
         registerForContextMenu(lstLista);
+    }
 
-        // Evento para cuando doy click en algun elemento de la lista ( ListView )
-        lstLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-                // Mensaje Toast del elemento seleccionado.
-                //sacar dialog fragment de ayuda
-                    //UsuariosFragment dFragment = new UsuariosFragment();
-                // Show DialogFragment
-                     //dFragment.show(fm, "Ayuda");
-
-                //mCallback.onArticleSelected(datosLista[position].getCodigo());
-                //UsuariosFragment fragment = (UsuariosFragment) getFragmentManager().findFragmentById(R.id.frag_UNO);
-                //listener.onArticuloSelected(datosLista[position].getCodigo());
-                Bundle bun = new Bundle();
-                bun.putString("edttext", "From Activity");
-// set Fragmentclass Arguments
-                //Fragment fragobj = new UsuariosFragment().newInstance(bun);
-                //fragobj.setArguments(bun);
-
-                //FragmentTransaction
-                //FragmentManager fem = getSupportFragmentManager();
-                //fm.beginTransaction().replace(R.id.btMedia, fragobj);
-
-                //transaction.replace((int)id, fragobj);
-                //transaction.commit();
-
-                //FragmentManager fun = getFragmentManager();
-                //FragmentTransaction fragmentTransaction = fun.beginTransaction();
-
-
-                //UsuariosFragment fragment = new UsuariosFragment();
-                //fragment.setArguments(bun);
-                //fragmentTransaction.add(R.id.btMedia, fragment);
-
-
-
-            }
-        });
-
-
-
-        /***
-         *
-         *
-         * fECHA ACTUAL--------------------------------------------------------------------------------------------
-         *
-         *
-         */
-
+    private void fecha() {
         // Conseguimos la fecha actual
         Calendar calendarNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
         monthDay = calendarNow.get(Calendar.DAY_OF_MONTH);
         month = calendarNow.get(Calendar.MONTH);
-
         // Le sumamos uno al dia
         mes = month+1;
 
         String fechaC = monthDay + "/0" + mes + "/2016";
 
         Log.i("holaaaaaaaaaaaaaaaaaaaa", fechaC);
-
-
-        cargarLista();
-    } // oncreate
-
-/*
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            listener = (OnArticuloSelectedListener) activity;
-        } catch (ClassCastException e) {}
     }
 
-*/
 
     private void cargarLista()
     {
@@ -172,7 +134,7 @@ public class MainActivity extends AppCompatActivity
                     datosLista[i].setCodigo(c.getInt(0));
                     datosLista[i].setOrigen(c.getString(1));
                     datosLista[i].setDestino(c.getString(2));
-                    datosLista[i].setCapacidad(c.getString(3));
+                    datosLista[i].setCapacidad(c.getInt(3));
                     datosLista[i].setFecha(c.getString(4));
                     datosLista[i].setHora(c.getString(5));
                     i++;
@@ -204,7 +166,7 @@ public class MainActivity extends AppCompatActivity
                     datosLista[i].setCodigo(c.getInt(0));
                     datosLista[i].setOrigen(c.getString(1));
                     datosLista[i].setDestino(c.getString(2));
-                    datosLista[i].setCapacidad(c.getString(3));
+                    datosLista[i].setCapacidad(c.getInt(3));
                     datosLista[i].setFecha(c.getString(4));
                     datosLista[i].setHora(c.getString(5));
                     i++;
@@ -231,21 +193,15 @@ public class MainActivity extends AppCompatActivity
      *
      */
     public void baja(View view) {
-
         db = usdbh.getReadableDatabase();
-
         String fechaC = monthDay + "/0" + mes + "/2016";
-
         Log.i("FEchaa", fechaC);
-
         if(db != null){
             db.execSQL("DELETE FROM Oferta WHERE fecha = " + "'" + fechaC + "'");
             Log.i("FEchaa", fechaC);
             db.close();
         }
-
         cargarLista();
-
     }
 
     @Override
@@ -271,18 +227,12 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         switch (id){
-
             case R.id.ayuda:
-            //sacar dialog fragment de ayuda
-                //ayudaFragment dFragment = new ayudaFragment();
-                // Show DialogFragment
-                //dFragment.show(fm, "Ayuda");
                 break;
             case R.id.salir:
-               finish();
+               finish(); finish();
                 break;
 
         }
@@ -356,10 +306,10 @@ public class MainActivity extends AppCompatActivity
             }else{
                 holder = (ViewHolder)item.getTag();
             }
-            holder.codigo.setText(datosLista[position].getCodigo() + "");
+            holder.codigo.setText(datosLista[position].getCodigo()+"");
             holder.origen.setText(datosLista[position].getOrigen());
             holder.destino.setText(datosLista[position].getDestino());
-            holder.capacidad.setText(datosLista[position].getCapacidad());
+            holder.capacidad.setText(datosLista[position].getCapacidad()+"");
             holder.fecha.setText(datosLista[position].getFecha());
             holder.hora.setText(datosLista[position].getHora());
 
@@ -367,6 +317,7 @@ public class MainActivity extends AppCompatActivity
             return(item);
         }
     }
+
     static class ViewHolder {
         TextView codigo;
         TextView origen;

@@ -20,11 +20,12 @@ public class UsuariosSQLiteHelper extends SQLiteOpenHelper {
             "email TEXT, " +
             "edad TEXT, " +
             "ciudad TEXT, " +
-            "contrasena TEXT)";
+            "contrasena TEXT," +
+            "valoracion INT)";
     String sqlCreaOfer = "CREATE TABLE Oferta (codigo INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
             "origen TEXT, " +
             "destino TEXT, " +
-            "capacidad TEXT, " +
+            "capacidad INT, " +
             "fecha TEXT, " +
             "hora TEXT)";
 

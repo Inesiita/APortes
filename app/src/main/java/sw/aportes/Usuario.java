@@ -12,6 +12,7 @@ public class Usuario
     private String edad;
     private String ciudad;
     private String contrasena;
+    private int valoracion;
 
     public Usuario(){}
     public Usuario(int codigo, String nombre, String email, String edad, String ciudad,  String contrasena){
@@ -59,4 +60,10 @@ public class Usuario
     public void setContrasena(String pass) {
         this.contrasena = pass;
     }
+
+    public int setValoracion(int  valor) { this.valoracion = valor;
+        return valor;
+    }
+    public int getValoracion() {return this.valoracion;}
+
 }

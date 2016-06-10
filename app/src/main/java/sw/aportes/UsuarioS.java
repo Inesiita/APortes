@@ -46,7 +46,7 @@ public class UsuarioS extends AppCompatActivity {
         lstLista = (ListView)findViewById(R.id.LstUsuarios);
 
         //Abrimos la base de datos 'DBUsuarios' en modo escritura
-        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 7);
+        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 8);
 
         //Asociamos el menu contextual a la lista
         registerForContextMenu(lstLista);
@@ -74,7 +74,7 @@ public class UsuarioS extends AppCompatActivity {
                     Intent i = new Intent(UsuarioS.this, ValorUsu.class);
 
                    // if (texto.equals("") || texto.equals(null))
-                        i.putExtra("texto", "TEXTO VACÍO");
+                        //i.putExtra("texto", "TEXTO VACÍO");
                    // else
 
 
@@ -85,7 +85,8 @@ public class UsuarioS extends AppCompatActivity {
                 i.putExtra("Nombre",  datosLista[position].getNombre());
                 i.putExtra("Ciudad", datosLista[position].getCiudad());
                 i.putExtra("Edad", datosLista[position].getEdad());
-                i.putExtra("email", datosLista[position].getEmail());
+                i.putExtra("Email", datosLista[position].getEmail());
+                i.putExtra("Valoracion", datosLista[position].getValoracion());
                 startActivity(i);
                 }
                 /*
@@ -120,7 +121,7 @@ public class UsuarioS extends AppCompatActivity {
         db = usdbh.getReadableDatabase();
         if (db != null)
         {
-            Cursor c = db.rawQuery("SELECT codigo,nombre,email,edad,ciudad,contrasena FROM Usuarios ORDER BY codigo ASC", null);
+            Cursor c = db.rawQuery("SELECT codigo,nombre,email,edad,ciudad,contrasena,valoracion FROM Usuarios ORDER BY codigo ASC", null);
             //Nos aseguramos de que existe al menos un registro
             if (c.moveToFirst()){
                 //Recorremos el cursor hasta que no haya más registros
@@ -134,6 +135,7 @@ public class UsuarioS extends AppCompatActivity {
                     datosLista[i].setEdad(c.getString(3));
                     datosLista[i].setCiudad(c.getString(4));
                     datosLista[i].setContrasena(c.getString(5));
+                    datosLista[i].setValoracion(c.getInt(6));
                     i++;
                 } while (c.moveToNext());
                 AdaptadorUsuarios adaptador = new AdaptadorUsuarios(this);
@@ -167,6 +169,7 @@ public class UsuarioS extends AppCompatActivity {
                 holder.edad = (TextView)item.findViewById(R.id.LblEdad);
                 holder.ciudad = (TextView)item.findViewById(R.id.LblCiudad);
                 holder.contrasena = (TextView)item.findViewById(R.id.LblContrasena);
+                holder.valoracion = (TextView)item.findViewById(R.id.rating);
                 //holder.contraseña = (TextView)item.findViewById(R.id.LblContraseña);
 
                 item.setTag(holder);
@@ -190,6 +193,7 @@ public class UsuarioS extends AppCompatActivity {
         TextView edad;
         TextView ciudad;
         TextView contrasena;
+        TextView valoracion;
 
     }
 

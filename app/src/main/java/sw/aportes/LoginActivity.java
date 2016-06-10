@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         mEmailSignInButton = (Button) findViewById(R.id.btnSingIn);
         mRegistrButton = (Button) findViewById(R.id.btnLogAReg);
         //final DataBaseMAnager db = new DataBaseMAnager(this);
-        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 7);
+        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 8);
 
         OnClickListener reg = new OnClickListener() {
             @Override

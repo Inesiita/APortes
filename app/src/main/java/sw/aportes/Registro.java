@@ -4,17 +4,34 @@ package sw.aportes;
  * Created by narwhall on 10/05/2016.
  */
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class Registro extends AppCompatActivity {
 
@@ -33,6 +50,11 @@ public class Registro extends AppCompatActivity {
 
     private boolean editando;
     private int usuarioSeleccionado;
+    private static int TAKE_PICTURE = 1;
+    private static int SELECT_PICTURE = 2;
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
+    private String name = "";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -60,12 +82,159 @@ public class Registro extends AppCompatActivity {
         btnAceptar = (Button)findViewById(R.id.BtnAceptar);
 
         //Abrimos la base de datos 'DBUsuarios' en modo escritura
-        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 7);
+        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 8);
 
         //Asignar los eventos necesarios
         asignarEventos();
+        name = Environment.getExternalStorageDirectory() + "/test.jpg";
+
+
+
+        Button btnAction = (Button) findViewById(R.id.btnFoto);
+        btnAction.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * Obtenemos los botones de imagen completa y de galer’a para revisar su estatus
+                 * m‡s adelante
+                 */
+
+
+                /**
+                 * Para todos los casos es necesario un intent, si accesamos la c‡mara con la acci—n
+                 * ACTION_IMAGE_CAPTURE, si accesamos la galer’a con la acci—n ACTION_PICK.
+                 * En el caso de la vista previa (thumbnail) no se necesita m‡s que el intent,
+                 * el c—digo e iniciar la actividad. Por eso inicializamos las variables intent y
+                 * code con los valores necesarios para el caso del thumbnail, as’ si ese es el
+                 * bot—n seleccionado no validamos nada en un if.
+                 */
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                int code = TAKE_PICTURE;
+
+
+                /**
+                 * Si la opci—n seleccionada es fotograf’a completa, necesitamos un archivo donde
+                 * guardarla
+                 */
+
+                    /**
+                     * Si la opci—n seleccionada es ir a la galer’a, el intent es diferente y el c—digo
+                     * tambiŽn, en la consecuencia de que estŽ chequeado el bot—n de la galer’a se hacen
+                     * esas asignaciones
+                     */
+                    intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                    code = SELECT_PICTURE;
+
+                /**
+                 * Luego, con todo preparado iniciamos la actividad correspondiente.
+                 */
+                startActivityForResult(intent, code);
+            }
+
+
+        });
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+            } else {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+
+            }
+        }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                }
+
+                return;
+            }
+        }
+    }
+
+    /**
+     * Funci—n que se ejecuta cuando concluye el intent en el que se solicita una imagen
+     * ya sea de la c‡mara o de la galer’a
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        /**
+         * Se revisa si la imagen viene de la c‡mara (TAKE_PICTURE) o de la galer’a (SELECT_PICTURE)
+         */
+        if (requestCode == TAKE_PICTURE) {
+            /**
+             * Si se reciben datos en el intent tenemos una vista previa (thumbnail)
+             */
+            if (data != null) {
+                /**
+                 * En el caso de una vista previa, obtenemos el extra ÒdataÓ del intent y
+                 * lo mostramos en el ImageView
+                 */
+                if (data.hasExtra("data")) {
+                    ImageView iv = (ImageView) findViewById(R.id.imageView);
+                    iv.setImageBitmap((Bitmap) data.getParcelableExtra("data"));
+                }
+                /**
+                 * De lo contrario es una imagen completa
+                 */
+            } else {
+                /**
+                 * A partir del nombre del archivo ya definido lo buscamos y creamos el bitmap
+                 * para el ImageView
+                 */
+                ImageView iv = (ImageView) findViewById(R.id.imageView);
+                iv.setImageBitmap(BitmapFactory.decodeFile(name));
+                /**
+                 * Para guardar la imagen en la galer’a, utilizamos una conexi—n a un MediaScanner
+                 */
+                new MediaScannerConnection.MediaScannerConnectionClient() {
+                    private MediaScannerConnection msc = null;
+
+                    {
+                        msc = new MediaScannerConnection(getApplicationContext(), this);
+                        msc.connect();
+                    }
+
+                    public void onMediaScannerConnected() {
+                        msc.scanFile(name, null);
+                    }
+
+                    public void onScanCompleted(String path, Uri uri) {
+                        msc.disconnect();
+                    }
+                };
+            }
+            /**
+             * Recibimos el URI de la imagen y construimos un Bitmap a partir de un stream de Bytes
+             */
+        } else if (requestCode == SELECT_PICTURE) {
+            Uri selectedImage = data.getData();
+            InputStream is;
+            try {
+                is = getContentResolver().openInputStream(selectedImage);
+                BufferedInputStream bis = new BufferedInputStream(is);
+                Bitmap bitmap = BitmapFactory.decodeStream(bis);
+                ImageView iv = (ImageView) findViewById(R.id.imageView);
+                iv.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+            }
+        }
+    }
     private void asignarEventos(){
         btnAceptar.setOnClickListener(new OnClickListener() {
             @Override

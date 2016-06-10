@@ -56,7 +56,7 @@ public class Publicar extends Activity {
         btnAceptar = (Button)findViewById(R.id.BtnAceptar);
 
         //Abrimos la base de datos 'DBUsuarios' en modo escritura
-        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 7);
+        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 8);
 
         //Asignar los eventos necesarios
         asignarEventos();

@@ -25,6 +25,4 @@
     <string name="action_ayuda">Ayuda</string>
     <string name="title_activity_usuario_s">UsuarioS</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-</resources>
+    </resources>

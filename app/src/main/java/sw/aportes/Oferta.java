@@ -9,12 +9,12 @@ public class Oferta
     private int codigo;
     private String origen;
     private String destino;
-    private String capacidad;
+    private int capacidad;
     private String fecha;
     private String hora;
 
     public Oferta(){}
-    public Oferta(int codigo, String origen, String destino,String capacidad, String fecha,String hora){
+    public Oferta(int codigo, String origen, String destino,int capacidad, String fecha,String hora){
         setCodigo(codigo);
         setOrigen(origen);
         setDestino(destino);
@@ -33,7 +33,7 @@ public class Oferta
 
 
     public String getOrigen() {
-        return origen;
+        return this.origen;
     }
     public void setOrigen(String origen) {
         this.origen = origen;
@@ -41,17 +41,18 @@ public class Oferta
 
 
     public String getDestino() {
-        return destino;
+        return this.destino;
     }
     public void setDestino(String destino) {
         this.destino = destino;
     }
 
-    public String getCapacidad() {
-        return capacidad;
+    public int getCapacidad() {
+        return this.capacidad;
     }
-    public void setCapacidad(String capacidad) {
-        this.capacidad = capacidad;
+    public int setCapacidad(int capa) {
+        this.capacidad = capa;
+        return capacidad;
     }
 
 

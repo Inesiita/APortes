@@ -94,17 +94,39 @@
             android:ems="10"
             android:id="@+id/TxtConfirContrasena"
             android:layout_gravity="left|top" />
+
+
     </FrameLayout>
 
-    <Button
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/BtnAceptar"
-        android:text="Aceptar"
-        android:paddingLeft="20dip"
-        android:paddingRight="20dip"
-        android:layout_gravity="center_horizontal"
-        android:background="#3b5eeb"
-        android:textColor="#dadcef" />
+        android:layout_gravity="left|bottom">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/imageView"
+            android:layout_gravity="left|bottom" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cargar Imagen"
+            android:id="@+id/btnFoto" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/BtnAceptar"
+            android:text="Aceptar"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:layout_gravity="center_horizontal"
+            android:background="#3b5eeb"
+            android:textColor="#dadcef" />
+    </LinearLayout>
 
 </LinearLayout>
