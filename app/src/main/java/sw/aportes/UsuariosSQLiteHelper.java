@@ -28,6 +28,9 @@ public class UsuariosSQLiteHelper extends SQLiteOpenHelper {
             "capacidad INT, " +
             "fecha TEXT, " +
             "hora TEXT)";
+    String sqlRelaccion = "CREATE TABLE Relacion (codigo INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+            "oferta INT, " +
+            "usuario INT)";
 
     public UsuariosSQLiteHelper(Context context, String name,
                                 CursorFactory factory, int version) {
@@ -40,6 +43,7 @@ public class UsuariosSQLiteHelper extends SQLiteOpenHelper {
         //Se ejecuta la sentencia SQL de creación de la tabla
         db.execSQL(sqlCreaUsu);
         db.execSQL(sqlCreaOfer);
+        db.execSQL(sqlRelaccion);
 
         // Conseguimos la fecha actual
         Calendar calendarNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
@@ -66,10 +70,12 @@ public class UsuariosSQLiteHelper extends SQLiteOpenHelper {
         //Se elimina la versión anterior
         db.execSQL("DROP TABLE IF EXISTS Usuarios");
         db.execSQL("DROP TABLE IF EXISTS Oferta");
+        db.execSQL("DROP TABLE IF EXISTS Relacion");
 
         //Se crea la nueva vrsión de la tabla
         db.execSQL(sqlCreaUsu);
         db.execSQL(sqlCreaOfer);
+        db.execSQL(sqlRelaccion);
 
 
     }

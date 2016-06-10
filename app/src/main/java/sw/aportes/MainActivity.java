@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity
     int monthDay;
     int month;
     int mes;
+    int codUs;
 
     private EditText filtrarOferta;
     //private OnArticuloSelectedListener listener;
@@ -57,9 +58,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         inicializar();
-
         fecha();
-
         cargarLista();
         // Evento para cuando doy click en algun elemento de la lista ( ListView )
         lstLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -68,7 +67,8 @@ public class MainActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
 
                 Intent i = new Intent(MainActivity.this, Cantidad.class);
-                i.putExtra("Codigo", datosLista[position].getCodigo());
+                i.putExtra("CodUsu", codUs);
+                i.putExtra("CodOfer", datosLista[position].getCodigo());
                 i.putExtra("Origen", datosLista[position].getOrigen());
                 i.putExtra("Destino", datosLista[position].getDestino());
                 i.putExtra("Capacidad", datosLista[position].getCapacidad());
@@ -102,6 +102,11 @@ public class MainActivity extends AppCompatActivity
 
         //Asociamos el menu contextual a la lista
         registerForContextMenu(lstLista);
+
+        //Recogemos el id del usuario pasado desde el login
+        Bundle extras = getIntent().getExtras();
+        codUs = extras.getInt("codigoU");
+
     }
 
     private void fecha() {
@@ -247,7 +252,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.Publicar) {
-           startActivity(new Intent(MainActivity.this,  Publicar.class));
+            Intent publicar = new Intent(MainActivity.this,  Publicar.class);
+            publicar.putExtra("codigoU", codUs);
+            startActivity(publicar);
 
         } else if (id == R.id.Login) {
             startActivity(new Intent(MainActivity.this,  LoginActivity.class));
@@ -256,15 +263,12 @@ public class MainActivity extends AppCompatActivity
            startActivity(new Intent(MainActivity.this,  Registro.class));
 
         } else if (id == R.id.Usuarios) {
-            startActivity(new Intent(MainActivity.this,  UsuarioS.class));
-
+            Intent usuarios = new Intent(MainActivity.this,  UsuarioS.class);
+            usuarios.putExtra("codigoU", codUs);
+            startActivity(usuarios);
 
         } else if (id == R.id.Perfil) {
         //    startActivity(new Intent(MainActivity.this,  Perfil.class));
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 

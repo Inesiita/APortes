@@ -32,10 +32,13 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mEmail;
     private EditText mPassword;
     private Button mEmailSignInButton;
-    private  Button mRegistrButton;
+    private Button mRegistrButton;
     private String login;
-    private String lg = "vacio";  //from bd
     private String paswd;
+
+    private int codigo; //from bd
+    private String nombre;  //from bd
+    private String lg = "vacio";  //from bd
     private String ps;  //from bd
 
     private UsuariosSQLiteHelper usdbh;
@@ -70,10 +73,11 @@ public class LoginActivity extends AppCompatActivity {
         OnClickListener sing = new OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = Obtener();
+               Obtener();
                 if(comprobar()){
-                    Toast.makeText( getApplicationContext(),  "Login Correcto, "+ name, Toast.LENGTH_SHORT).show();
+                    Toast.makeText( getApplicationContext(),  "Login Correcto, "+ nombre, Toast.LENGTH_SHORT).show();
                     Intent lg = new Intent(getApplication(), MainActivity.class);
+                    lg.putExtra("codigoU", codigo);
                     startActivity(lg);
                 } else {
                     Toast.makeText( getApplicationContext(),  "Usuario o Contraseña incorrectos", Toast.LENGTH_SHORT).show();
@@ -86,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private String Obtener() {
+    private void  Obtener() {
 
         login = getEmail();
         paswd = getPassword();
@@ -102,22 +106,19 @@ public class LoginActivity extends AppCompatActivity {
         //Toast.makeText( getApplicationContext(), "--"+ login +"--", Toast.LENGTH_SHORT).show();
 
         Cursor c = null;
-        c = db.rawQuery("SELECT nombre,email,contrasena FROM Usuarios WHERE email = '" + login.toString() + "'",null);
+        c = db.rawQuery("SELECT codigo,nombre,email,contrasena FROM Usuarios WHERE email = '" + login.toString() + "'",null);
+
+        //Recorremos el cursor hasta que no haya más registros
 
         if(c.moveToFirst())  {
-            //Recorremos el cursor hasta que no haya más registros
-            // c.moveToFirst();
-            //String codigo= c.getString(0);
-            String nombre = c.getString(0);
-            lg = c.getString(1);
-            ps = c.getString(2);
-            return nombre;
+            codigo = c.getInt(0);
+            nombre = c.getString(1);
+            lg = c.getString(2);
+            ps = c.getString(3);
         }else {
             Toast.makeText( getApplicationContext(),  "no existe", Toast.LENGTH_SHORT).show();
 
         }
-
-        return null;
     }
 
     private boolean comprobar() {

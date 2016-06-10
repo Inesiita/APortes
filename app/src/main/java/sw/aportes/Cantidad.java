@@ -32,7 +32,9 @@ public class Cantidad extends AppCompatActivity {
     int capaz;
     String fec;
     String hor;
-    private int code;
+    private int codUsu;
+    private int codOfer;
+
 
 
     @Override
@@ -64,7 +66,8 @@ public class Cantidad extends AppCompatActivity {
     public void getExtras() {
         Bundle extras= getIntent().getExtras();
 
-        code = extras.getInt("Codigo");
+        codUsu = extras.getInt("CodUsu");
+        codOfer = extras.getInt("CodOfer");
 
         orig = extras.getString("Origen");
         Ori.setText(orig);
@@ -89,7 +92,7 @@ public class Cantidad extends AppCompatActivity {
         db = usdbh.getReadableDatabase();
         if (db != null) {
             //String nn = new String(filtrarOferta.getText().toString());
-            Cursor c = db.rawQuery("SELECT capacidad FROM Oferta WHERE codigo = " + "'" + code + "'", null);
+            Cursor c = db.rawQuery("SELECT capacidad FROM Oferta WHERE codigo = " + "'" + codOfer + "'", null);
 
             int consul = 0;
             int valor = Integer.parseInt(editText.getText().toString());
@@ -132,22 +135,31 @@ public class Cantidad extends AppCompatActivity {
             if(true) {
                 insertar(resul);
             }
-        }
+
+
+    }
 
     }
 
     private void insertar(int resul) {
         db = usdbh.getWritableDatabase();
         if (db != null) {
-            db.execSQL("UPDATE Oferta SET capacidad = '" + resul + "' WHERE codigo= " + "'" + 1 + "'");
-            //Cursor c = db.rawQuery("SELECT AVG(media) AS media FROM Usuarios", null);
+            //Insertar la cantidad de m3 sustraida de la oferta
+            db.execSQL("UPDATE Oferta SET capacidad = '" + resul + "' WHERE codigo= " + "'" + codOfer + "'");
             db.close();
+        }        //if not null
 
-           finish();
+        db = usdbh.getWritableDatabase();
+        if (db != null) {
 
-        }
-
-    }
+            //Agregar el pedido a la tabla de relaciones
+            db.execSQL("INSERT INTO Relacion (oferta, usuario) VALUES('"
+                    + codOfer + "','"
+                    + codUsu + "')");
+            db.close();
+        }// if not null
+        finish();
+    }// insertar
 
 
 }
