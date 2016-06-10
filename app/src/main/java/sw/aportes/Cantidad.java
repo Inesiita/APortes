@@ -135,11 +135,8 @@ public class Cantidad extends AppCompatActivity {
             if(true) {
                 insertar(resul);
             }
-
-
-    }
-
-    }
+        } // database
+    } // onclick
 
     private void insertar(int resul) {
         db = usdbh.getWritableDatabase();
