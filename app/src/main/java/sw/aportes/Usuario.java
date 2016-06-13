@@ -9,17 +9,21 @@ public class Usuario
     private int codigo;
     private String nombre;
     private String email;
+    private int telefono;
+    private String dni;
     private String edad;
     private String ciudad;
     private String contrasena;
     private int valoracion;
 
     public Usuario(){}
-    public Usuario(int codigo, String nombre, String email, String edad, String ciudad,  String contrasena){
+    public Usuario(int codigo, String nombre, String email, String edad, int telefono, String dni, String ciudad,  String contrasena){
         setCodigo(codigo);
         setNombre(nombre);
         setEmail(email);
         setEdad(edad);
+        setTelefono(telefono);
+        setDni(dni);
         setCiudad(ciudad);
         setContrasena(contrasena);
     }
@@ -41,12 +45,28 @@ public class Usuario
     public void setEmail(String eml) {
         this.email = eml;
     }
+
     public String getEdad() {
         return edad;
     }
     public void setEdad(String eda) {
         this.edad = eda;
     }
+
+    public int getTelefono() {
+        return telefono;
+    }
+    public void setTelefono(int tlf) {
+        this.telefono = tlf;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+    public void setDni(String d) {
+        this.dni = d;
+    }
+
     public String getCiudad() {
         return ciudad;
     }

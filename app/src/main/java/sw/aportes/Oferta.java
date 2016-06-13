@@ -6,29 +6,40 @@ package sw.aportes;
 
 public class Oferta
 {
-    private int codigo;
+    //variables principales
+    private int codOferta;
+    private int codUsuario;
     private String origen;
     private String destino;
     private int capacidad;
     private String fecha;
     private String hora;
+    private int precio;
 
+    // constructores
     public Oferta(){}
-    public Oferta(int codigo, String origen, String destino,int capacidad, String fecha,String hora){
-        setCodigo(codigo);
+    public Oferta(int codOf, int codUs, String origen, String destino,int capacidad, String fecha, String hora, int precio){
+        setCodOferta(codOf);
+        setCodUsuario(codUs);
         setOrigen(origen);
         setDestino(destino);
         setCapacidad(capacidad);
         setFecha(fecha);
         setHora(hora);
+        setPrecio(precio);
 
 
     }
-    public int getCodigo() {
-        return codigo;
+
+    // creamos los manejadores para todas las variables
+    public int getCodOferta() { return codOferta ; }
+    public void setCodOferta(int codo) { this.codOferta = codo;}
+
+    public int getCodUsuario() {
+        return codUsuario ;
     }
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setCodUsuario(int codu) {
+        this.codUsuario = codu;
     }
 
 
@@ -71,5 +82,12 @@ public class Oferta
         this.hora = hora;
     }
 
+    public int getPrecio() {
+        return this.precio;
+    }
+    public int setPrecio(int pre) {
+        this.precio = pre;
+        return precio;
+    }
 }
 

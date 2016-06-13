@@ -19,18 +19,24 @@ public class UsuariosSQLiteHelper extends SQLiteOpenHelper {
             "nombre TEXT, " +
             "email TEXT, " +
             "edad TEXT, " +
+            "telefono INT," +
+            "dni TEXT," +
             "ciudad TEXT, " +
             "contrasena TEXT," +
             "valoracion INT)";
     String sqlCreaOfer = "CREATE TABLE Oferta (codigo INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+            "codigoUs INT, " +
             "origen TEXT, " +
             "destino TEXT, " +
             "capacidad INT, " +
             "fecha TEXT, " +
-            "hora TEXT)";
+            "hora TEXT,"+
+            "precio TEXT)";
     String sqlRelaccion = "CREATE TABLE Relacion (codigo INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
             "oferta INT, " +
-            "usuario INT)";
+            "usuario INT, " +
+            "cantidad INT, " +
+            "precio INT)";
 
     public UsuariosSQLiteHelper(Context context, String name,
                                 CursorFactory factory, int version) {

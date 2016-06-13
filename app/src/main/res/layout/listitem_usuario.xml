@@ -38,7 +38,19 @@
                 android:textStyle="normal"
                 android:textSize="40px" />
 
+            <TextView android:id="@+id/LblTelefono"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="normal"
+                android:textSize="40px" />
+
             <TextView android:id="@+id/LblCiudad"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="normal"
+                android:textSize="40px" />
+
+            <TextView android:id="@+id/LblValoracion"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="normal"

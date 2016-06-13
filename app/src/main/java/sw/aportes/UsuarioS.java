@@ -2,16 +2,14 @@ package sw.aportes;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.app.FragmentManager;
-
-//import android.app.FragmentManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,7 +17,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+//import android.app.FragmentManager;
 
 public class UsuarioS extends AppCompatActivity {
 
@@ -46,7 +45,7 @@ public class UsuarioS extends AppCompatActivity {
         lstLista = (ListView)findViewById(R.id.LstUsuarios);
 
         //Abrimos la base de datos 'DBUsuarios' en modo escritura
-        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 8);
+        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 9);
 
         //Asociamos el menu contextual a la lista
         registerForContextMenu(lstLista);
@@ -56,37 +55,19 @@ public class UsuarioS extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-                // Mensaje Toast del elemento seleccionado.
-                //Toast.makeText(getApplicationContext(), adapter.getItem(position), Toast.LENGTH_SHORT).show();
-                //Toast.makeText(getApplicationContext(), adaptador.getCount(), Toast.LENGTH_SHORT).show();
-                //datosLista[position].getCodigo();
 
-                //showMyDialog(position);
-
-                //sacar dialog fragment de ayuda
-                //UsuariosFragment dFragment = new UsuariosFragment();
-                // Show DialogFragment
-                //dFragment.show(fm, "Ayuda");
-                //Toast.makeText(getApplicationContext(), media.getText().toString(), Toast.LENGTH_LONG).show();
-                //media.getText().toString();
-
-               // public void lanzarActivity(View v, String texto) {
-                    Intent i = new Intent(UsuarioS.this, ValorUsu.class);
-
-                   // if (texto.equals("") || texto.equals(null))
-                        //i.putExtra("texto", "TEXTO VACÍO");
-                   // else
-
-
-
-
+                // creamos el intent y añadimos los extrar para mostrar la información del usuario
+                Intent i = new Intent(UsuarioS.this, ValorUsu.class);
 
                 i.putExtra("Codigo", datosLista[position].getCodigo());
                 i.putExtra("Nombre",  datosLista[position].getNombre());
                 i.putExtra("Ciudad", datosLista[position].getCiudad());
                 i.putExtra("Edad", datosLista[position].getEdad());
+                i.putExtra("Telefono", datosLista[position].getTelefono());
+                i.putExtra("Dni", datosLista[position].getDni());
                 i.putExtra("Email", datosLista[position].getEmail());
                 i.putExtra("Valoracion", datosLista[position].getValoracion());
+
                 startActivity(i);
                 }
                 /*
@@ -104,16 +85,30 @@ public class UsuarioS extends AppCompatActivity {
         cargarLista();
     }
 
-    public void doPositiveClick() {
-        // Do stuff here.
-        Log.i("FragmentAlertDialog", "Positive click!");
-        Toast.makeText(getBaseContext(), "recibido", Toast.LENGTH_LONG).show();
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
-    public void doNegativeClick() {
-        // Do stuff here.
-        Log.i("FragmentAlertDialog", "Negative click!");
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        switch (id){
+            case R.id.ayuda:
+                startActivity(new Intent(UsuarioS.this, Ayuda.class));
+                break;
+            case R.id.salir:
+                startActivity(new Intent(UsuarioS.this, LoginActivity.class));
+                finish(); finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void cargarLista()
@@ -121,7 +116,7 @@ public class UsuarioS extends AppCompatActivity {
         db = usdbh.getReadableDatabase();
         if (db != null)
         {
-            Cursor c = db.rawQuery("SELECT codigo,nombre,email,edad,ciudad,contrasena,valoracion FROM Usuarios ORDER BY codigo ASC", null);
+            Cursor c = db.rawQuery("SELECT codigo,nombre,email,edad,telefono,ciudad,contrasena,valoracion FROM Usuarios ORDER BY codigo ASC", null);
             //Nos aseguramos de que existe al menos un registro
             if (c.moveToFirst()){
                 //Recorremos el cursor hasta que no haya más registros
@@ -133,9 +128,10 @@ public class UsuarioS extends AppCompatActivity {
                     datosLista[i].setNombre(c.getString(1));
                     datosLista[i].setEmail(c.getString(2));
                     datosLista[i].setEdad(c.getString(3));
-                    datosLista[i].setCiudad(c.getString(4));
-                    datosLista[i].setContrasena(c.getString(5));
-                    datosLista[i].setValoracion(c.getInt(6));
+                    datosLista[i].setTelefono(c.getInt(4));
+                    datosLista[i].setCiudad(c.getString(5));
+                    datosLista[i].setContrasena(c.getString(6));
+                    datosLista[i].setValoracion(c.getInt(7));
                     i++;
                 } while (c.moveToNext());
                 AdaptadorUsuarios adaptador = new AdaptadorUsuarios(this);
@@ -167,9 +163,10 @@ public class UsuarioS extends AppCompatActivity {
                 holder.nombre = (TextView)item.findViewById(R.id.LblNombre);
                 holder.email = (TextView)item.findViewById(R.id.LblEmail);
                 holder.edad = (TextView)item.findViewById(R.id.LblEdad);
+                holder.telefono = (TextView)item.findViewById(R.id.LblTelefono);
                 holder.ciudad = (TextView)item.findViewById(R.id.LblCiudad);
-                holder.contrasena = (TextView)item.findViewById(R.id.LblContrasena);
-                holder.valoracion = (TextView)item.findViewById(R.id.rating);
+                //holder.contrasena = (TextView)item.findViewById(R.id.LblContrasena);
+                holder.valoracion = (TextView)item.findViewById(R.id.LblValoracion);
                 //holder.contraseña = (TextView)item.findViewById(R.id.LblContraseña);
 
                 item.setTag(holder);
@@ -180,6 +177,7 @@ public class UsuarioS extends AppCompatActivity {
             holder.nombre.setText(datosLista[position].getNombre());
             holder.email.setText(datosLista[position].getEmail());
             holder.edad.setText(datosLista[position].getEdad());
+            holder.telefono.setText(datosLista[position].getTelefono()+"");
             holder.ciudad.setText(datosLista[position].getCiudad());
             //holder.contrasena.setText(datosLista[position].getContrasena());
 //            holder.contraseña.setText(datosLista[position].getContraseña());
@@ -191,8 +189,9 @@ public class UsuarioS extends AppCompatActivity {
         TextView nombre;
         TextView email;
         TextView edad;
+        TextView telefono;
         TextView ciudad;
-        TextView contrasena;
+
         TextView valoracion;
 
     }

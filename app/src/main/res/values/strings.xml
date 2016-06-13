@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">APortes</string>
+    <string name="app_name">PortesApp</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_sign_in">Entrar</string>
-    <string name="title_activity_login">Iniciar sesion</string>
+    <string name="title_activity_login">PortesApp</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -23,6 +23,12 @@
 
     <string name="action_salir">Salir</string>
     <string name="action_ayuda">Ayuda</string>
-    <string name="title_activity_usuario_s">UsuarioS</string>
+    <string name="title_activity_usuario_s">Usuarios</string>
+    <string name="title_activity_perfil">Perfil</string>
+    <string name="title_activity_prueba">pruebaActivity</string>
+    <string name="title_activity_ayuda">Ayuda</string>
+    <string name="title_activity_valorusu">Datos usuario</string>
+    <string name="title_activity_cantidad">Reserva</string>
+    <string name="title_activity_ofertas_aceptadas">OfertasAceptadas</string>
 
-    </resources>
+</resources>

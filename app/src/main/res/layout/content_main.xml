@@ -11,34 +11,36 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="sw.aportes.MainActivity"
     tools:showIn="@layout/app_bar_main"
-    android:background="#272adf">
+    android:background="#ffffff">
 
-    <EditText
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/filtrarOferta"
-        android:background="#e2ebf5" />
+        android:id="@+id/linearLayout"
+        android:weightSum="1">
 
-    <ListView android:id="@+id/LstOferta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_below="@+id/filtrarOferta"
-        android:background="#e2ebf5" />
+        <EditText
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/filtrarOferta"
+            android:background="#dcebf9"
+            android:layout_weight="0.80" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Buscar"
-        android:id="@+id/btBuscar"
-        android:onClick="buscar"
-        android:background="#0b2af0"
-        android:textColor="#ffffff"
-        android:layout_above="@+id/LstOferta"
-        android:layout_alignLeft="@+id/btActualizar"
-        android:layout_alignStart="@+id/btActualizar" />
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="87dp"
+            android:layout_height="wrap_content"
+            android:text="Buscar"
+            android:id="@+id/btBuscar"
+            android:onClick="buscar"
+            android:background="#233092"
+            android:textColor="#ffffff"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
@@ -46,12 +48,19 @@
         android:text="Actualizar"
         android:id="@+id/btActualizar"
         android:onClick="baja"
-        android:background="#0b2af0"
-        android:textColor="#ffffff"
-        android:layout_marginBottom="48dp"
-        android:layout_alignParentBottom="true"
+        android:background="#233092"
+        android:textColor="#fefcfc"
+        android:layout_below="@+id/LstOferta"
         android:layout_alignRight="@+id/LstOferta"
-        android:layout_alignEnd="@+id/LstOferta"
-        android:layout_marginRight="42dp"
-        android:layout_marginEnd="42dp" />
+        android:layout_alignEnd="@+id/LstOferta" />
+
+    <ListView android:id="@+id/LstOferta"
+        android:layout_width="wrap_content"
+        android:layout_height="360dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:background="#ffffff"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

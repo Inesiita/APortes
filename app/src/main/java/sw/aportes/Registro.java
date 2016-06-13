@@ -20,16 +20,16 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
@@ -38,6 +38,8 @@ public class Registro extends AppCompatActivity {
     private EditText txtNombre;
     private EditText txtEmail;
     private EditText txtEdad;
+    private EditText txtTelefono;
+    private EditText txtDni;
     private EditText txtCiudad;
     private EditText txtContrasena;
     private EditText txtConfirContrasena;
@@ -57,37 +59,40 @@ public class Registro extends AppCompatActivity {
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_nuevo_registro);
 
         inicializar();
-
+        // asignarEventos();
+/*
         Bundle bundle = getIntent().getExtras();
         if (bundle != null && bundle.containsKey("codigo")) {
             editando = true;
             cargarDatos(bundle.getInt("codigo"));
         }
+*/
     }
 
-    private void inicializar(){
+    private void inicializar() {
         //Obtenemos las referencias de los controles
-        txtNombre = (EditText)findViewById(R.id.TxtNombre);
-        txtEmail = (EditText)findViewById(R.id.TxtEmail);
-        txtEdad = (EditText)findViewById(R.id.TxtEdad);
-        txtCiudad = (EditText)findViewById(R.id.TxtCiudad);
-        txtContrasena = (EditText)findViewById(R.id.TxtContraseña);
-        txtConfirContrasena = (EditText)findViewById(R.id.TxtConfirContrasena);
-        lblMensaje = (TextView)findViewById(R.id.LblMensaje);
-        btnAceptar = (Button)findViewById(R.id.BtnAceptar);
+        txtNombre = (EditText) findViewById(R.id.RLblNombre);
+        txtEmail = (EditText) findViewById(R.id.RLblEmail);
+        txtEdad = (EditText) findViewById(R.id.RLblEdad);
+        txtTelefono = (EditText) findViewById(R.id.RLblTelefono);
+        txtDni = (EditText) findViewById(R.id.RLblDni);
+        txtCiudad = (EditText) findViewById(R.id.RLblCiudad);
+        txtContrasena = (EditText) findViewById(R.id.RLblPass);
+        txtConfirContrasena = (EditText) findViewById(R.id.RLblPass2);
+        lblMensaje = (TextView) findViewById(R.id.RLblMensaje);
+        btnAceptar = (Button) findViewById(R.id.BtnAceptar);
 
         //Abrimos la base de datos 'DBUsuarios' en modo escritura
-        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 8);
+        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 9);
 
         //Asignar los eventos necesarios
         asignarEventos();
         name = Environment.getExternalStorageDirectory() + "/test.jpg";
-
 
 
         Button btnAction = (Button) findViewById(R.id.btnFoto);
@@ -117,13 +122,13 @@ public class Registro extends AppCompatActivity {
                  * guardarla
                  */
 
-                    /**
-                     * Si la opci—n seleccionada es ir a la galer’a, el intent es diferente y el c—digo
-                     * tambiŽn, en la consecuencia de que estŽ chequeado el bot—n de la galer’a se hacen
-                     * esas asignaciones
-                     */
-                    intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                    code = SELECT_PICTURE;
+                /**
+                 * Si la opci—n seleccionada es ir a la galer’a, el intent es diferente y el c—digo
+                 * tambiŽn, en la consecuencia de que estŽ chequeado el bot—n de la galer’a se hacen
+                 * esas asignaciones
+                 */
+                intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                code = SELECT_PICTURE;
 
                 /**
                  * Luego, con todo preparado iniciamos la actividad correspondiente.
@@ -153,7 +158,7 @@ public class Registro extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 // If request is cancelled, the result arrays are empty.
@@ -235,31 +240,38 @@ public class Registro extends AppCompatActivity {
             }
         }
     }
-    private void asignarEventos(){
+
+    private void asignarEventos() {
         btnAceptar.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 lblMensaje.setText("");
 
-                if (txtNombre.getText().toString().equals("")){
+                if (txtNombre.getText().toString().equals("")) {
                     lblMensaje.setTextColor(Color.RED);
                     lblMensaje.setText("El Nombre no puede estar vacio");
-                }else if (txtEmail.getText().toString().equals("")){
+                } else if (txtEmail.getText().toString().equals("")) {
                     lblMensaje.setTextColor(Color.RED);
                     lblMensaje.setText("El Email no puede estar vacio");
-                }else if (txtContrasena.getText().toString().equals("")){
+                } else if (txtContrasena.getText().toString().equals("")) {
                     lblMensaje.setTextColor(Color.RED);
                     lblMensaje.setText("La contraseña no puede estar vacio");
-                }else if (txtConfirContrasena.getText().toString().equals("")){
+                } else if (txtConfirContrasena.getText().toString().equals("")) {
                     lblMensaje.setTextColor(Color.RED);
                     lblMensaje.setText("La contraseña no puede estar vacio");
-                }else if (txtEdad.getText().toString().equals("")){
+                } else if (txtEdad.getText().toString().equals("")) {
                     lblMensaje.setTextColor(Color.RED);
                     lblMensaje.setText("La Edad no puede estar vacio");
-                }else if (txtCiudad.getText().toString().equals("")){
+                } else if (txtTelefono.getText().toString().equals("")) {
+                    lblMensaje.setTextColor(Color.RED);
+                    lblMensaje.setText("El Telefono no puede estar vacio");
+                } else if (txtDni.getText().toString().equals("")) {
+                    lblMensaje.setTextColor(Color.RED);
+                    lblMensaje.setText("El Dni no puede estar vacio");
+                } else if (txtCiudad.getText().toString().equals("")) {
                     lblMensaje.setTextColor(Color.RED);
                     lblMensaje.setText("La Ciudad no puede estar vacio");
-                }else {
+                } else {
 
                     lblMensaje.setTextColor(Color.GREEN);
                     lblMensaje.setText("Guardando...");
@@ -267,11 +279,17 @@ public class Registro extends AppCompatActivity {
                 if (editando) {
                     actualizarRegistro();
                 } else {
-                    if (txtContrasena.getText().toString().equals(txtConfirContrasena.getText().toString())) {
-                        guardarRegistro();
+                    String pass = txtContrasena.getText().toString();
+                    String pass2 = txtConfirContrasena.getText().toString();
+                    String email = txtEmail.getText().toString();
+                    if ((pass.equals(pass2)) && email.contains("@")) {
+                        if (email.contains("@")) {
+                            if (cargarDatos() != true)
+                                guardarRegistro();
+                        }
                     } else {
                         lblMensaje.setTextColor(Color.RED);
-                        lblMensaje.setText("Las contraseñas son distintas");
+                        lblMensaje.setText("Las contraseñas son distintas o el correo es falso");
                     }
 
                 }
@@ -279,63 +297,80 @@ public class Registro extends AppCompatActivity {
         });
     }
 
-    private void guardarRegistro(){
+    private void guardarRegistro() {
         //Conectamos con la base de datos para escribir
         db = usdbh.getWritableDatabase();
-        if (db != null){
-            db.execSQL("INSERT INTO Usuarios (nombre, email, edad, ciudad, contrasena) VALUES ('"
+        if (db != null) {
+            db.execSQL("INSERT INTO Usuarios (nombre, email, edad, telefono, dni, ciudad, contrasena) VALUES ('"
                     + txtNombre.getText().toString() + "','"
                     + txtEmail.getText().toString() + "','"
-                    + txtEdad.getText().toString() +"','"
+                    + txtEdad.getText().toString() + "','"
+                    + txtTelefono.getText().toString() + "','"
+                    + txtDni.getText().toString() + "','"
                     + txtCiudad.getText().toString() + "','"
                     + txtContrasena.getText().toString() + "')");
             //Cerramos la base de datos
             db.close();
             lblMensaje.setTextColor(Color.GREEN);
             lblMensaje.setText("Usuario Guardado !");
-            startActivity(new Intent(Registro.this, MainActivity.class));
+            startActivity(new Intent(Registro.this, LoginActivity.class));
+            finish();
+
         }
     }
 
-    private void actualizarRegistro(){
+    private void actualizarRegistro() {
         //Conectamos con la base de datos para escribir
         db = usdbh.getWritableDatabase();
-        if (db != null){
+        if (db != null) {
             db.execSQL("UPDATE Usuarios SET nombre = '"
                     + txtNombre.getText().toString() + "', "
                     + "email = '" + txtEmail.getText().toString()
                     + "edad = '" + txtEdad.getText().toString()
+                    + "telefono = '" + txtTelefono.getText().toString()
+                    + "dni = '" + txtDni.getText().toString()
                     + "ciudad = '" + txtCiudad.getText().toString()
                     + "contrasena = '" + txtContrasena.getText().toString()
-                    + "' WHERE codigo = "+ usuarioSeleccionado);
+                    + "' WHERE codigo = " + usuarioSeleccionado);
             //Cerramos la base de datos
             db.close();
             lblMensaje.setTextColor(Color.GREEN);
             lblMensaje.setText("Usuario Actualizado !");
 
-            finish();
+            //finish();
         }
     }
 
-    private void cargarDatos(int codigo){
+    private boolean cargarDatos() {
         db = usdbh.getWritableDatabase();
-        if (db != null){
-            String[] args = new String[] {codigo+""};
-            Cursor cursor = db.rawQuery("SELECT nombre, email, edad, ciudad, contrasena FROM Usuarios WHERE codigo = ?",args);
+        if (db != null) {
+            String lg = txtEmail.getText().toString();
+            String[] args = new String[]{lg};
+            Cursor cursor = db.rawQuery("SELECT nombre, email, edad, telefono, dni, ciudad, contrasena FROM Usuarios WHERE codigo = ?", args);
 
-            if (cursor.moveToFirst()){
+            if (cursor.moveToFirst()) {
                 txtNombre.setText(cursor.getString(0));
                 txtEmail.setText(cursor.getString(1));
                 txtEdad.setText(cursor.getString(2));
-                txtCiudad.setText(cursor.getString(3));
-                txtContrasena.setText(cursor.getString(4));
-                usuarioSeleccionado = codigo;
-            }else{
+                txtTelefono.setText(cursor.getString(3));
+                txtDni.setText(cursor.getString(4));
+                txtCiudad.setText(cursor.getString(5));
+                txtContrasena.setText(cursor.getString(6));
+                //usuarioSeleccionado = codigo;
+                Log.i("usuario sel: ", usuarioSeleccionado + "");
+                Toast.makeText(getApplicationContext(), "Introduzca otro nombre de USUARIO \n El actual ya existe", Toast.LENGTH_LONG).show();
+                db.close();
+                return true;
+            } else {
                 lblMensaje.setTextColor(Color.RED);
-                lblMensaje.setText("Error: No se encuentra el registro " + codigo);
+                lblMensaje.setText("Correcto: No se han encontrado coincidencias " + lg);
+                db.close();
+                return false;
             }
+        } // if db null
 
-            db.close();
-        }
+
+        return false;
     }
+
 }

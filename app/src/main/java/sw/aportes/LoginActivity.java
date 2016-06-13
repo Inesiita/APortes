@@ -4,16 +4,14 @@ package sw.aportes;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Patterns;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.util.NoSuchElementException;
 
 
 /**
@@ -28,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    // UI references.
+    // inicializamos los objetos y variables que utilizaremos
     private EditText mEmail;
     private EditText mPassword;
     private Button mEmailSignInButton;
@@ -39,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private int codigo; //from bd
     private String nombre;  //from bd
     private String lg = "vacio";  //from bd
-    private String ps;  //from bd
+    private String ps = "vacio";  //from bd
 
     private UsuariosSQLiteHelper usdbh;
     private SQLiteDatabase db;
@@ -53,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         inicio();
     }
 
+    // establecemos los objetos de nuestro layout y los manejadores de los botones
     private void inicio(){
         // Set up the login form.
         mEmail = (EditText) findViewById(R.id.editLogEmail);
@@ -60,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         mEmailSignInButton = (Button) findViewById(R.id.btnSingIn);
         mRegistrButton = (Button) findViewById(R.id.btnLogAReg);
         //final DataBaseMAnager db = new DataBaseMAnager(this);
-        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 8);
+        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 9);
 
         OnClickListener reg = new OnClickListener() {
             @Override
@@ -73,12 +72,14 @@ public class LoginActivity extends AppCompatActivity {
         OnClickListener sing = new OnClickListener() {
             @Override
             public void onClick(View v) {
+                // obrtenemos los datos
                Obtener();
                 if(comprobar()){
                     Toast.makeText( getApplicationContext(),  "Login Correcto, "+ nombre, Toast.LENGTH_SHORT).show();
                     Intent lg = new Intent(getApplication(), MainActivity.class);
                     lg.putExtra("codigoU", codigo);
                     startActivity(lg);
+                    finish();
                 } else {
                     Toast.makeText( getApplicationContext(),  "Usuario o Contraseña incorrectos", Toast.LENGTH_SHORT).show();
                 }
@@ -90,60 +91,48 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    // funcion que recoge los datos introducidos por el usuario, y los datos de la bd
     private void  Obtener() {
 
         login = getEmail();
         paswd = getPassword();
         db = usdbh.getWritableDatabase();
 
-
-        //String[] args = new String[] {login};
-        //String[] campos = new String[] {"codigo", "nombre","email", "contrasena" };
-        //Toast.makeText( getApplicationContext(),  args +"\n"+ campos, Toast.LENGTH_SHORT).show();
-
-        //Cursor c = db.query("Usuarios", campos, "email=?", args, null, null, null);
-        //Campos .query  -->NombreTabla + campos + Where + Campos + GroupBy + Having + OrderBy
-        //Toast.makeText( getApplicationContext(), "--"+ login +"--", Toast.LENGTH_SHORT).show();
-
-        Cursor c = null;
-        c = db.rawQuery("SELECT codigo,nombre,email,contrasena FROM Usuarios WHERE email = '" + login.toString() + "'",null);
+        Cursor c = db.rawQuery("SELECT codigo,nombre,email,contrasena FROM Usuarios WHERE email = '" + login.toString() + "'",null);
 
         //Recorremos el cursor hasta que no haya más registros
-
         if(c.moveToFirst())  {
             codigo = c.getInt(0);
             nombre = c.getString(1);
             lg = c.getString(2);
             ps = c.getString(3);
         }else {
-            Toast.makeText( getApplicationContext(),  "no existe", Toast.LENGTH_SHORT).show();
+            Toast.makeText( getApplicationContext(),  " el usuario no existe", Toast.LENGTH_SHORT).show();
 
         }
     }
-
+    // función que comprueba si usuario y contraseña son iguales
     private boolean comprobar() {
         if (!lg.equals("vacio")) {
             if ((lg.equals(login)) && (ps.equals(paswd))) {
                 return true;
             } else {
+                Log.i("Login -->","Usuario y contraseña no coinciden");
                 return false;
             }
-        } else return false;
+        } else{
+            Toast.makeText( getApplicationContext(),  " El campo login está vacio", Toast.LENGTH_SHORT).show();
+            Log.i("Login --> "," vacio");
+            return false;
+        }
 
     }
 
-   /* private void onLoginClicked() {
-        if(!isDataValid()) {
-            Toast.makeText( getApplicationContext(),  "Usuario o Contraseña incorrectos", Toast.LENGTH_SHORT).show();
-        } else {
-            finish();
-        }
-    }*/
-
+    // funcion que obtiene la contraseña introducida
     public String getPassword() {
         return mPassword.getText().toString().trim(); // mEditPassword - EditText
     }
-
+    // función que obtiene el email introducido
     public String getEmail() {
         return mEmail.getText().toString(); // mEditEmail - EditText
     }

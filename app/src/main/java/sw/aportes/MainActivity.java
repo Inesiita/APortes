@@ -1,15 +1,11 @@
 package sw.aportes;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-//import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -31,6 +27,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
+//import android.support.v4.app.FragmentManager;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -41,14 +39,16 @@ public class MainActivity extends AppCompatActivity
 
     private ListView lstLista;
     private Oferta[] datosLista;
-    FragmentManager fm;
+    //FragmentManager fm;
 
     int monthDay;
     int month;
     int mes;
     int codUs;
 
+
     private EditText filtrarOferta;
+
     //private OnArticuloSelectedListener listener;
 
 
@@ -60,20 +60,21 @@ public class MainActivity extends AppCompatActivity
         inicializar();
         fecha();
         cargarLista();
+
         // Evento para cuando doy click en algun elemento de la lista ( ListView )
         lstLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
 
                 Intent i = new Intent(MainActivity.this, Cantidad.class);
                 i.putExtra("CodUsu", codUs);
-                i.putExtra("CodOfer", datosLista[position].getCodigo());
+                i.putExtra("CodOfer", datosLista[position].getCodOferta());
                 i.putExtra("Origen", datosLista[position].getOrigen());
                 i.putExtra("Destino", datosLista[position].getDestino());
                 i.putExtra("Capacidad", datosLista[position].getCapacidad());
                 i.putExtra("Fecha", datosLista[position].getFecha());
                 i.putExtra("Hora", datosLista[position].getHora());
+                i.putExtra("Precio", datosLista[position].getPrecio());
 
                 startActivity(i);
             }
@@ -98,15 +99,16 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Abrimos la base de datos 'DBUsuarios' en modo escritura
-        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 8);
+        usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 9);
 
         //Asociamos el menu contextual a la lista
         registerForContextMenu(lstLista);
 
         //Recogemos el id del usuario pasado desde el login
-        Bundle extras = getIntent().getExtras();
-        codUs = extras.getInt("codigoU");
-
+        if(getIntent().getExtras().containsKey("codigoU")) {
+            Bundle extras = getIntent().getExtras();
+            codUs = extras.getInt("codigoU");
+        }
     }
 
     private void fecha() {
@@ -119,7 +121,7 @@ public class MainActivity extends AppCompatActivity
 
         String fechaC = monthDay + "/0" + mes + "/2016";
 
-        Log.i("holaaaaaaaaaaaaaaaaaaaa", fechaC);
+        //Log.i("holaaaaaaaaaaaaaaaaaaaa", fechaC);
     }
 
 
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity
         db = usdbh.getReadableDatabase();
         if (db != null)
         {
-            Cursor c = db.rawQuery("SELECT codigo,origen,destino,capacidad,fecha,hora FROM Oferta ORDER BY codigo ASC", null);
+            Cursor c = db.rawQuery("SELECT codigo,origen,destino,capacidad,fecha,hora,precio FROM Oferta ORDER BY codigo ASC", null);
             //Nos aseguramos de que existe al menos un registro
             if (c.moveToFirst()){
                 //Recorremos el cursor hasta que no haya más registros
@@ -136,12 +138,14 @@ public class MainActivity extends AppCompatActivity
                 int i = 0;
                 do {
                     datosLista[i] = new Oferta();
-                    datosLista[i].setCodigo(c.getInt(0));
+                    datosLista[i].setCodOferta(c.getInt(0));
                     datosLista[i].setOrigen(c.getString(1));
                     datosLista[i].setDestino(c.getString(2));
                     datosLista[i].setCapacidad(c.getInt(3));
                     datosLista[i].setFecha(c.getString(4));
                     datosLista[i].setHora(c.getString(5));
+                    datosLista[i].setPrecio(c.getInt(6));
+                    Log.i("codigo of",datosLista[i].getCodOferta()+" ??");
                     i++;
                 } while (c.moveToNext());
                 AdaptadorOfertas adaptador = new AdaptadorOfertas(this);
@@ -168,12 +172,13 @@ public class MainActivity extends AppCompatActivity
                 int i = 0;
                 do {
                     datosLista[i] = new Oferta();
-                    datosLista[i].setCodigo(c.getInt(0));
+                    datosLista[i].setCodOferta(c.getInt(0));
                     datosLista[i].setOrigen(c.getString(1));
                     datosLista[i].setDestino(c.getString(2));
                     datosLista[i].setCapacidad(c.getInt(3));
                     datosLista[i].setFecha(c.getString(4));
                     datosLista[i].setHora(c.getString(5));
+                    datosLista[i].setPrecio(c.getInt(6));
                     i++;
                 } while (c.moveToNext());
                 AdaptadorOfertas adaptador = new AdaptadorOfertas(this);
@@ -183,13 +188,9 @@ public class MainActivity extends AppCompatActivity
             }else if (nn.equals("")){
                 cargarLista();
             }
-
         }
        // baja();
-
     }
-
-
     /***
      *
      *
@@ -235,16 +236,17 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         switch (id){
             case R.id.ayuda:
+                startActivity(new Intent(MainActivity.this, Ayuda.class));
                 break;
             case R.id.salir:
-               finish(); finish();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                finish(); finish();
                 break;
-
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+    // método heredado para configurar los elementos del menú principal
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -256,11 +258,11 @@ public class MainActivity extends AppCompatActivity
             publicar.putExtra("codigoU", codUs);
             startActivity(publicar);
 
-        } else if (id == R.id.Login) {
-            startActivity(new Intent(MainActivity.this,  LoginActivity.class));
-
+        } else if (id == R.id.Ofertas) {
+            //startActivity(new Intent(MainActivity.this,  LoginActivity.class));
         } else if (id == R.id.Registro) {
            startActivity(new Intent(MainActivity.this,  Registro.class));
+            finish();
 
         } else if (id == R.id.Usuarios) {
             Intent usuarios = new Intent(MainActivity.this,  UsuarioS.class);
@@ -268,7 +270,17 @@ public class MainActivity extends AppCompatActivity
             startActivity(usuarios);
 
         } else if (id == R.id.Perfil) {
-        //    startActivity(new Intent(MainActivity.this,  Perfil.class));
+
+            startActivity(new Intent(MainActivity.this,  Perfil.class).putExtra("coodigoU", codUs));
+
+        } else if (id == R.id.Ayuda) {
+
+            startActivity(new Intent(MainActivity.this,  Ayuda.class));
+
+        } else if (id == R.id.Salir) {
+
+            startActivity(new Intent(MainActivity.this,  LoginActivity.class));
+            finish();
 
         }
 
@@ -278,6 +290,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    // Adaptador para rellenar las ofertas del listview
     @SuppressWarnings("unchecked")
     class AdaptadorOfertas extends ArrayAdapter
     {
@@ -304,18 +317,20 @@ public class MainActivity extends AppCompatActivity
                 holder.capacidad = (TextView)item.findViewById(R.id.LblCapacidad);
                 holder.fecha = (TextView)item.findViewById(R.id.LblFecha);
                 holder.hora = (TextView)item.findViewById(R.id.LblHora);
+                holder.precio = (TextView)item.findViewById(R.id.LblPrecio);
 
 
                 item.setTag(holder);
             }else{
                 holder = (ViewHolder)item.getTag();
             }
-            holder.codigo.setText(datosLista[position].getCodigo()+"");
+            holder.codigo.setText(datosLista[position].getCodOferta()+"");
             holder.origen.setText(datosLista[position].getOrigen());
             holder.destino.setText(datosLista[position].getDestino());
             holder.capacidad.setText(datosLista[position].getCapacidad()+"");
             holder.fecha.setText(datosLista[position].getFecha());
             holder.hora.setText(datosLista[position].getHora());
+            holder.precio.setText(datosLista[position].getPrecio()+"");
 
 
             return(item);
@@ -329,6 +344,7 @@ public class MainActivity extends AppCompatActivity
         TextView capacidad;
         TextView fecha;
         TextView hora;
+        TextView precio;
     }
 
 }

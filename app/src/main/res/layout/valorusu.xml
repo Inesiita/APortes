@@ -1,95 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
-    <TableRow
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="119dp"
+        android:layout_weight="0.35">
 
-        <TextView
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Nombre"
-            android:id="@+id/txtNome"
-            android:layout_column="0" />
+            android:id="@+id/tableLayout"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/imageView"
+            android:layout_toStartOf="@+id/imageView">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Nombre"
+                    android:id="@+id/UtxtNome"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/UlblNome"
+                    android:layout_column="8" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Edad"
+                    android:id="@+id/UtxtEdad"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/UlblEdad"
+                    android:layout_column="8" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Email:"
+                    android:id="@+id/UtxtEmail"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/UlblEmail"
+                    android:layout_column="8" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Ciudad:"
+                    android:id="@+id/UtxtCiudad"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/UlblCiudad"
+                    android:layout_column="8" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Telefono:"
+                    android:id="@+id/UtxtTelefono"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/UlblTelefono"
+                    android:layout_column="8" />
+            </TableRow>
+
+
+
+        </TableLayout>
+
+        <ImageView
+            android:layout_width="187dp"
             android:layout_height="wrap_content"
-            android:text="nome"
-            android:id="@+id/lblNome"
-            android:layout_column="8" />
+            android:id="@+id/imageView"
 
-    </TableRow>
+            android:layout_column="0"
+            android:layout_row="0"
+            android:src="@drawable/chico"
+            android:layout_weight="0.53"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true" />
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Edad"
-            android:id="@+id/txtEdad"
-            android:layout_column="0" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="viejo"
-            android:id="@+id/lblEdad"
-            android:layout_column="8" />
 
-    </TableRow>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="right">
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Email"
-            android:id="@+id/txtEmail"
-            android:layout_gravity="center_horizontal"
-            android:gravity="left" />
+    </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Emilio"
-            android:id="@+id/lblEmail"
-            android:layout_column="8" />
-    </TableRow>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="valoración"
+        android:id="@+id/rating" />
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        android:layout_row="1"
+        android:layout_column="0" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Ciudad"
-            android:id="@+id/txtCiudad"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="pueblu"
-            android:id="@+id/lblCiudad"
-            android:layout_column="8" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </TableRow>
-
-</TableLayout>
+</LinearLayout>

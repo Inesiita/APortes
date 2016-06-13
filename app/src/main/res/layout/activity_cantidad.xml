@@ -19,20 +19,25 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:text="Enviar"
         android:id="@+id/btMedia"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:nestedScrollingEnabled="false"
-        android:onClick="onClick" />
+        android:onClick="onClick"
+        android:background="#292b9f"
+        android:textColor="#ffffff" />
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btMedia"
-        android:layout_alignStart="@+id/btMedia">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
         <TableRow
             android:layout_width="match_parent"
@@ -43,18 +48,18 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Origen"
-                android:id="@+id/txtOrigen"
+                android:id="@+id/CtxtOrigen"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_alignRight="@+id/txtDestino"
-                android:layout_alignEnd="@+id/txtDestino"
+                android:layout_alignRight="@+id/CtxtDestino"
+                android:layout_alignEnd="@+id/CtxtDestino"
                 android:layout_column="0" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ori"
-                android:id="@+id/lblOrig"
+                android:id="@+id/ClblOrig"
                 android:layout_column="8" />
         </TableRow>
 
@@ -67,19 +72,19 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Destino"
-                android:id="@+id/txtDestino"
-                android:layout_below="@+id/txtOrigen"
+                android:id="@+id/CtxtDestino"
+                android:layout_below="@+id/CtxtOrigen"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_alignRight="@+id/txtCapacidad"
-                android:layout_alignEnd="@+id/txtCapacidad"
+                android:layout_alignRight="@+id/CtxtCapacidad"
+                android:layout_alignEnd="@+id/CtxtCapacidad"
                 android:layout_column="0" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="destino"
-                android:id="@+id/lblDest"
+                android:id="@+id/ClblDest"
                 android:layout_column="8" />
         </TableRow>
 
@@ -91,16 +96,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Capacidad"
-                android:id="@+id/txtCapacidad"
-                android:layout_below="@+id/txtDestino"
+                android:text="Espacio disponible     "
+                android:id="@+id/CtxtCapacidad"
+                android:layout_below="@+id/CtxtDestino"
                 android:layout_column="0" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="capacity"
-                android:id="@+id/lblCapac"
+                android:id="@+id/ClblCapac"
                 android:layout_column="8" />
         </TableRow>
 
@@ -113,8 +118,8 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Fecha"
-                android:id="@+id/txtFecha"
-                android:layout_below="@+id/txtCapacidad"
+                android:id="@+id/CtxtFecha"
+                android:layout_below="@+id/CtxtCapacidad"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_column="0" />
@@ -123,7 +128,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="hoy"
-                android:id="@+id/lblFec"
+                android:id="@+id/ClblFec"
                 android:layout_column="8" />
         </TableRow>
 
@@ -136,8 +141,8 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Hora"
-                android:id="@+id/txtHora"
-                android:layout_below="@+id/txtFecha"
+                android:id="@+id/CtxtHora"
+                android:layout_below="@+id/CtxtFecha"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_column="0" />
@@ -146,9 +151,41 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ahora"
-                android:id="@+id/lblHor"
+                android:id="@+id/ClblHor"
+                android:layout_column="8" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Precio"
+                android:id="@+id/CtxtPrecio"
+                android:layout_below="@+id/CtxtPrecio"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_column="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ahora"
+                android:id="@+id/ClblPre"
                 android:layout_column="8" />
         </TableRow>
     </TableLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:text="¿Cuanto espacio desea reservar? (m3)"
+        android:id="@+id/textView12"
+        android:layout_above="@+id/editText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

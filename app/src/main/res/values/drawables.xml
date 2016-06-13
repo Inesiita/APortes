@@ -1,8 +1,11 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <item name="ic_menu_camera" type="drawable">@android:drawable/ic_menu_camera</item>
-    <item name="ic_menu_gallery" type="drawable">@android:drawable/ic_menu_gallery</item>
-    <item name="ic_menu_slideshow" type="drawable">@android:drawable/ic_menu_slideshow</item>
-    <item name="ic_menu_manage" type="drawable">@android:drawable/ic_menu_manage</item>
-    <item name="ic_menu_share" type="drawable">@android:drawable/ic_menu_share</item>
-    <item name="ic_menu_send" type="drawable">@android:drawable/ic_menu_send</item>
+    <item name="ic_menu_registro" type="drawable">@android:drawable/ic_input_add</item>
+    <item name="ic_menu_publicar" type="drawable">@android:drawable/ic_menu_save</item>
+    <item name="ic_menu_perfil" type="drawable">@android:drawable/ic_menu_slideshow</item>
+    <item name="ic_menu_camera" type="drawable">@android:drawable/ic_lock_idle_lock</item>
+
+    usarios<item name="ic_menu_usuarios" type="drawable">@android:drawable/ic_menu_send</item>
+    ayuda <item name="ic_menu_ayuda" type="drawable">@android:drawable/ic_menu_help</item>
+    salir<item name="ic_menu_salir" type="drawable">@android:drawable/ic_menu_close_clear_cancel</item>
+
 </resources>

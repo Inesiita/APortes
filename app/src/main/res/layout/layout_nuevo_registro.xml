@@ -1,121 +1,241 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:weightSum="1"
-    android:background="#cfd9f7"
-    style="@style/AlertDialog.AppCompat.Light">
+    style="@style/AlertDialog.AppCompat.Light"
+    android:background="#ffffff">
 
-    <TextView android:id="@+id/LblNombre"
-        android:text="Nombre:"
-        android:layout_width="fill_parent"
+    <ScrollView
+        android:layout_width="397dp"
+        android:layout_height="391dp"
+        android:id="@+id/scrollView2"
+        android:background="#ffffff">
+
+        <TableLayout
+            android:layout_width="350dp"
+            android:layout_height="match_parent">
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+            android:id="@+id/RTxtNombre"
+            android:text="Nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip"
+            android:textStyle="bold"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:textColor="#1b25db" />
+
+            </TableRow>
+
+            <EditText
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textColor="#1f3cdf" />
+        android:inputType="textAutoComplete"
+        android:ems="10"
+        android:id="@+id/RLblNombre"
+        android:layout_gravity="left|top"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="10dp" />
 
-    <EditText android:id="@+id/TxtNombre"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView android:id="@+id/LblEmail"
+    <TextView
+        android:id="@+id/RTxtEmail"
         android:text="Email:"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textColor="#1f3cdf" />
+        android:textColor="#1b25db"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp" />
 
-    <EditText android:id="@+id/TxtEmail"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
-    <TextView android:id="@+id/LblEdad"
+    <EditText
+        android:id="@+id/RLblEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="10dp" />
+
+
+
+    <TextView
+        android:id="@+id/RTxtEdad"
         android:text="Edad:"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textColor="#1f3cdf" />
+        android:textColor="#1b25db"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp" />
 
-    <EditText android:id="@+id/TxtEdad"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
-    <TextView android:id="@+id/LblCiudad"
+    <EditText
+        android:id="@+id/RLblEdad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="10dp" />
+
+    <TextView
+        android:id="@+id/RTxtTelefono"
+        android:text="Telefono: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#1b25db"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp" />
+
+    <EditText
+        android:id="@+id/RLblTelefono"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="10dp" />
+
+            <TextView
+                android:id="@+id/RTxtDni"
+                android:text="Dni:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#1b25db"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp" />
+
+            <EditText
+                android:id="@+id/RLblDni"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="10dp" />
+
+
+    <TextView
+        android:id="@+id/RTxtCiudad"
         android:text="Ciudad:"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textColor="#1f3cdf" />
+        android:textColor="#1b25db"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp" />
 
-    <EditText android:id="@+id/TxtCiudad"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/RLblCiudad"
+        android:layout_width="118dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Contraseña"
-        android:id="@+id/LblContrasena"
-        android:textColor="#1f3cdf"
-        android:textStyle="bold" />
+        android:id="@+id/RTxtPass"
+        android:textColor="#1b25db"
+        android:textStyle="bold"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/TxtContraseña" />
+        android:id="@+id/RLblPass"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Confirmar contraseña"
-        android:id="@+id/LblConfirContraseña"
-        android:textColor="#1f3cdf"
-        android:textStyle="bold" />
+        android:id="@+id/RTxtPass2"
+        android:textColor="#1b25db"
+        android:textStyle="bold"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="right"
-        android:layout_weight="0.59">
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/RLblPass2"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp" />
 
-        <TextView android:id="@+id/LblMensaje"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dip"
-            android:textStyle="bold" />
+    </TableLayout>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:id="@+id/TxtConfirContrasena"
-            android:layout_gravity="left|top" />
-
-
-    </FrameLayout>
+    </ScrollView>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="66dp"
         android:layout_gravity="left|bottom">
 
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/imageView"
-            android:layout_gravity="left|bottom" />
+            android:background="#ffffff" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
+            android:layout_width="138dp"
             android:layout_height="wrap_content"
             android:text="Cargar Imagen"
-            android:id="@+id/btnFoto" />
+            android:id="@+id/btnFoto"
+            android:background="#6fd16a"
+            android:textColor="#ffffff" />
 
         <Button
             android:layout_width="wrap_content"
@@ -128,5 +248,11 @@
             android:background="#3b5eeb"
             android:textColor="#dadcef" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="398dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/RLblMensaje" />
 
 </LinearLayout>

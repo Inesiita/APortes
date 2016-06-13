@@ -31,12 +31,35 @@
             android:name=".Registro"
             android:label="@string/titleRegistro"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".Publicar" />
-        <activity android:name=".ValorUsu" />
-        <activity android:name=".Cantidad" />
+        <activity
+            android:name=".Publicar"
+            android:label="@string/title_activity_publicar" />
+        <activity
+            android:name=".ValorUsu"
+            android:label="@string/title_activity_valorusu" />
+        <activity
+            android:name=".Cantidad"
+            android:label="@string/title_activity_cantidad" />
         <activity
             android:name=".UsuarioS"
             android:label="@string/title_activity_usuario_s"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Perfil"
+            android:label="@string/title_activity_perfil"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Ayuda"
+            android:label="@string/title_activity_ayuda"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="sw.aportes.MainActivity" />
+        </activity>
+        <activity
+            android:name=".OfertasAceptadas"
+            android:label="@string/title_activity_ofertas_aceptadas"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

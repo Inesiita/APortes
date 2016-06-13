@@ -2,27 +2,42 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item
+        <!--item
             android:id="@+id/Login"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Login" />
+            android:title="Login" /-->
         <item
             android:id="@+id/Registro"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_registro"
             android:title="Registro" />
         <item
             android:id="@+id/Publicar"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Publicar" />
+            android:icon="@drawable/ic_menu_publicar"
+            android:title="Publicar oferta" />
 
         <item
             android:id="@+id/Perfil"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_menu_perfil"
             android:title="Perfil" />
+
+
+        <item
+            android:id="@+id/Ofertas"
+            android:icon="@drawable/ic_menu_ofertas"
+            android:title="Ofertas" />
+
         <item
             android:id="@+id/Usuarios"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_menu_usuarios"
             android:title="Usuarios" />
+        <item
+            android:id="@+id/Ayuda"
+            android:icon="@drawable/ic_menu_ayuda"
+            android:title="Ayuda" />
+        <item
+            android:id="@+id/Salir"
+            android:icon="@drawable/ic_menu_salir"
+            android:title="Salir" />
 
 
     </group>
